@@ -1,8 +1,10 @@
+import os
 from flask import Flask, jsonify
 from gnews_module import fetch_recent_articles
 from classifier_module import classify_disruptions
 
 app = Flask(__name__)
+PORT = int(os.environ.get("PORT", 5000))
 
 @app.route('/')
 def home():
@@ -21,5 +23,5 @@ def check_disruptions():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=PORT)
